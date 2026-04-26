@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 class CalculatorServiceTest {
 
@@ -14,40 +16,19 @@ class CalculatorServiceTest {
         calculatorService = new CalculatorService();
     }
 
-    @Test
-    void shouldAddTwoNumbers() {
+    @ParameterizedTest
+    @CsvSource({
+            "2.0d, 3.0d, ADD, 5.0",
+            "5.0d, 3.0d, SUBTRACT, 2.0d",
+            "4.0d, 3.0d, MULTIPLY, 12.0d",
+            "10.0, 2.0d, DIVIDE, 5.0d"
+    })
+    void shouldCalculate(double a, double b, Operation op, double expectedResult) {
         //when
-        double result = calculatorService.calculate(2.0d, 3.0d, Operation.ADD);
+        double result = calculatorService.calculate(a, b, op);
 
         //then
-        assertEquals(5.0, result);
-    }
-
-    @Test
-    void shouldSubtractTwoNumbers() {
-        //when
-        double result = calculatorService.calculate(5, 3, Operation.SUBTRACT);
-
-        //then
-        assertEquals(2.0, result);
-    }
-
-    @Test
-    void shouldMultiplyTwoNumbers() {
-        //when
-        double result = calculatorService.calculate(4, 3, Operation.MULTIPLY);
-
-        //then
-        assertEquals(12.0, result);
-    }
-
-    @Test
-    void shouldDivideTwoNumbers() {
-        //when
-        double result = calculatorService.calculate(10, 2, Operation.DIVIDE);
-
-        //then
-        assertEquals(5.0, result);
+        assertEquals(expectedResult, result);
     }
 
     @Test
