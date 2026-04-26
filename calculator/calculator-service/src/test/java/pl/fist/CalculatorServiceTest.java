@@ -39,4 +39,13 @@ class CalculatorServiceTest {
         //then
         assertEquals(12.0, result);
     }
+
+    @Test
+    void shouldDivideTwoNumbers() {
+        //when
+        double result = calculatorService.calculate(10, 2, Operation.DIVIDE);
+
+        //then
+        assertEquals(5.0, result);
+    }
 }
