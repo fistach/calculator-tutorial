@@ -30,4 +30,13 @@ class CalculatorServiceTest {
         //then
         assertEquals(2.0, result);
     }
+
+    @Test
+    void shouldMultiplyTwoNumbers() {
+        //when
+        double result = calculatorService.calculate(4, 3, Operation.MULTIPLY);
+
+        //then
+        assertEquals(12.0, result);
+    }
 }
