@@ -1,6 +1,7 @@
 package pl.fist;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -47,5 +48,12 @@ class CalculatorServiceTest {
 
         //then
         assertEquals(5.0, result);
+    }
+
+    @Test
+    void shouldHandleDivisionByZero() {
+        assertThrows(ArithmeticException.class, () ->
+                calculatorService.calculate(10, 0, Operation.DIVIDE)
+        );
     }
 }
