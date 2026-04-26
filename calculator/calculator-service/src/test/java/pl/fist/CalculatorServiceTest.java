@@ -1,9 +1,8 @@
 package pl.fist;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class CalculatorServiceTest {
 
@@ -23,4 +22,12 @@ class CalculatorServiceTest {
         assertEquals(5.0, result);
     }
 
+    @Test
+    void shouldSubtractTwoNumbers() {
+        //when
+        double result = calculatorService.calculate(5, 3, Operation.SUBTRACT);
+
+        //then
+        assertEquals(2.0, result);
+    }
 }
