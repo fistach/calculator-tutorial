@@ -8,9 +8,14 @@ public class CalculatorService {
             case SUBTRACT:
                 return a - b;
             case DIVIDE:
+                if (b == 0.0d) {
+                    throw new ArithmeticException("Division by 0!");
+                }
                 return a / b;
-            default:
+            case MULTIPLY:
                 return a * b;
+            default:
+                throw new IllegalStateException("unknown operation");
         }
     }
 }
