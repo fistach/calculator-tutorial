@@ -1,5 +1,5 @@
 package pl.fist;
 
 public enum Operation {
-    SUBTRACT, MULTIPLY, ADD
+    SUBTRACT, MULTIPLY, DIVIDE, ADD
 }

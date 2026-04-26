@@ -7,6 +7,8 @@ public class CalculatorService {
                 return a + b;
             case SUBTRACT:
                 return a - b;
+            case DIVIDE:
+                return a / b;
             default:
                 return a * b;
         }
