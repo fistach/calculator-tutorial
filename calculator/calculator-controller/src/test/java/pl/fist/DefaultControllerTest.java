@@ -2,7 +2,9 @@ package pl.fist;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -56,6 +58,9 @@ class DefaultControllerTest {
         String b = "4";
         String c = "*";
         DefaultController controller = new DefaultController(service);
+
+        //and
+        when(service.calculate(eq(3.5d), eq(4.0d), eq(Operation.MULTIPLY))).thenReturn(14.0d);
 
         //when
         double result = controller.run(a, b, c);
