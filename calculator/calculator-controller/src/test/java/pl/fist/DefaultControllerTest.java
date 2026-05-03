@@ -49,4 +49,19 @@ class DefaultControllerTest {
         assertEquals(Operation.ADD, opCaptor.getValue());
     }
 
+    @Test
+    void shouldReturnTheResultOfOperation() {
+        //given
+        String a = "3.5";
+        String b = "4";
+        String c = "*";
+        DefaultController controller = new DefaultController(service);
+
+        //when
+        double result = controller.run(a, b, c);
+
+        //then
+        assertEquals(14.0d, result);
+    }
+
 }
