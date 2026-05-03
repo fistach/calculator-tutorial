@@ -8,12 +8,17 @@ public class Application {
     private static DefaultController controller = new DefaultController(service);
 
     public static void main(String[] args) {
+        System.out.println("Type \"exit\" to quit");
+
         Scanner scanner = new Scanner(System.in);
+        String[] questions = {"Podaj a: ", "Podaj b: ", "Podaj działanie: "};
 
         int i = 0;
-        String[] strings = new String[3];
+
+        String[] strings = new String[questions.length];
 
         while (true) {
+            System.out.print(questions[i]);
             String line = scanner.nextLine();
 
             if ("exit".equalsIgnoreCase(line)) {
