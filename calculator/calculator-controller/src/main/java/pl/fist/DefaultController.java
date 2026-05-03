@@ -4,21 +4,43 @@ import java.util.Arrays;
 
 public class DefaultController {
 
-    public DefaultController() {}
+    private final CalculatorService service;
 
-    public void run(String a, String b, String c) {
-        parseNumber(a);
-        parseNumber(b);
-        if (!Arrays.asList("+", "-", "*", "/").contains(c)) {
-            throw new IllegalStateException(c + "is not a valid operation");
+    public DefaultController(CalculatorService service) {
+        this.service = service;
+    }
+
+    public void run(String aString, String bString, String opString) {
+        double a = parseNumber(aString);
+        double b = parseNumber(bString);
+
+        if (!Arrays.asList("+", "-", "*", "/").contains(opString)) {
+            throw new IllegalStateException(opString + " is not a valid operation");
+        }
+
+        Operation op = convertOperation(opString);
+
+        service.calculate(a, b, op);
+    }
+
+    private Operation convertOperation(String opString) {
+        switch (opString) {
+            case "+":
+                return Operation.ADD;
+            case "-":
+                return Operation.SUBTRACT;
+            case "*":
+                return Operation.MULTIPLY;
+            default:
+                return Operation.DIVIDE;
         }
     }
 
-    private void parseNumber(String stringNumber) {
+    private double parseNumber(String stringNumber) {
         try {
-            Double.parseDouble(stringNumber);
+            return Double.parseDouble(stringNumber);
         } catch (NumberFormatException nfe) {
-            throw new IllegalStateException(stringNumber + "is not stringNumber number");
+            throw new IllegalStateException(stringNumber + " is not a number");
         }
     }
 }
