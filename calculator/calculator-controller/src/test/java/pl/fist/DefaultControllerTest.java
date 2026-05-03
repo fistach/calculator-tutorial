@@ -1,12 +1,19 @@
 package pl.fist;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.verify;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
 class DefaultControllerTest {
+
+    @Mock
+    private CalculatorService service;
 
     @Test
     void shouldThrowExceptionAtIncorrectInput() {
@@ -14,9 +21,32 @@ class DefaultControllerTest {
         String a = "foo";
         String b = "bar";
         String c = "foobar";
-        DefaultController controller = new DefaultController();
+        DefaultController controller = new DefaultController(service);
 
         //then
         assertThrows(IllegalStateException.class, () -> controller.run(a, b, c));
     }
+
+    @Test
+    void shouldPassValidInputToService() {
+        //given
+        String a = "5";
+        String b = "3";
+        String c = "+";
+        DefaultController controller = new DefaultController(service);
+
+        //when
+        controller.run(a, b, c);
+
+        //then
+        ArgumentCaptor<Double> aCaptor = ArgumentCaptor.forClass(Double.class);
+        ArgumentCaptor<Double> bCaptor = ArgumentCaptor.forClass(Double.class);
+        ArgumentCaptor<Operation> opCaptor = ArgumentCaptor.forClass(Operation.class);
+
+        verify(service).calculate(aCaptor.capture(), bCaptor.capture(), opCaptor.capture());
+        assertEquals(5.0d, aCaptor.getValue());
+        assertEquals(3.0d, bCaptor.getValue());
+        assertEquals(Operation.ADD, opCaptor.getValue());
+    }
+
 }
