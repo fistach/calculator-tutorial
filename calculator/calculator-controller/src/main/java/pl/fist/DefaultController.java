@@ -10,7 +10,7 @@ public class DefaultController {
         this.service = service;
     }
 
-    public void run(String aString, String bString, String opString) {
+    public double run(String aString, String bString, String opString) {
         double a = parseNumber(aString);
         double b = parseNumber(bString);
 
@@ -20,7 +20,7 @@ public class DefaultController {
 
         Operation op = convertOperation(opString);
 
-        service.calculate(a, b, op);
+        return service.calculate(a, b, op);
     }
 
     private Operation convertOperation(String opString) {
