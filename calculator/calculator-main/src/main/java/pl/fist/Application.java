@@ -1,7 +1,17 @@
 package pl.fist;
 
+import java.util.Scanner;
+
 public class Application {
+
     public static void main(String[] args) {
-        System.out.println("hello world");
+        Scanner scanner = new Scanner(System.in);
+
+        while (true) {
+            String line = scanner.nextLine();
+            if ("exit".equalsIgnoreCase(line)) {
+                break;
+            }
+        }
     }
 }
