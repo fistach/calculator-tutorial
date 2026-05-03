@@ -4,11 +4,12 @@ import java.util.Scanner;
 
 public class Application {
 
+    private static final String END = "koniec";
     private static CalculatorService service = new CalculatorService();
     private static DefaultController controller = new DefaultController(service);
 
     public static void main(String[] args) {
-        System.out.println("Type \"exit\" to quit");
+        System.out.println("Napisz \"" + END + "\" żeby zakończyć");
 
         Scanner scanner = new Scanner(System.in);
         String[] questions = {"Podaj a: ", "Podaj b: ", "Podaj działanie: "};
@@ -21,14 +22,14 @@ public class Application {
             System.out.print(questions[i]);
             String line = scanner.nextLine();
 
-            if ("exit".equalsIgnoreCase(line)) {
+            if (END.equalsIgnoreCase(line)) {
                 break;
             }
             strings[i] = line;
             i++;
 
             if (i == 3) {
-                controller.run(strings[0], strings[1], strings[2]);
+                System.out.println("Wynik: " + controller.run(strings[0], strings[1], strings[2]));
                 i = 0;
             }
         }
